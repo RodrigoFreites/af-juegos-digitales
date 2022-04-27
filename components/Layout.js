@@ -1,14 +1,26 @@
 import { createTheme } from '@mui/material/styles';
 import {
+  AppBar,
+  Badge,
+  Box,
+  Button,
+  Container,
   CssBaseline,
+  Divider,
+  Drawer,
+  IconButton,
+  InputBase,
+  Link,
+  List,
+  ListItem,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Switch,
+  ThemeProvider,
   Toolbar,
   Typography,
-  AppBar,
-  Link,
-  ThemeProvider,
-  Container,
-  Box,
-  Switch,
+  useMediaQuery,
 } from '@mui/material';
 import NextLink from 'next/link';
 import Head from 'next/head';
@@ -19,7 +31,7 @@ import jsCookie from 'js-cookie';
 
 export default function Layout({ title, description, children }) {
   const { state, dispatch } = useContext(Store);
-  const { darkMode } = state;
+  const { darkMode, cart } = state;
   const theme = createTheme({
     components: {
       MuiLink: {
@@ -81,6 +93,20 @@ export default function Layout({ title, description, children }) {
                 checked={darkMode}
                 onChange={darkModeChangeHandler}
               ></Switch>
+              <NextLink href="cart" passHref>
+                <Link>
+                  <Typography component="span">
+                    {cart.cartItems.lenght > 0 ? (
+                      <Badge color="seco" badgeContent={cart.cartItems.lenght}>
+                        {' '}
+                        Cart
+                      </Badge>
+                    ) : (
+                      'Cart'
+                    )}
+                  </Typography>
+                </Link>
+              </NextLink>
             </Box>
           </Toolbar>
         </AppBar>
